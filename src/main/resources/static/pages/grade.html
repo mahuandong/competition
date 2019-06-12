@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>成绩</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="../../css/font.css">
+    <link rel="stylesheet" href="../../css/weadmin.css">
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="weadmin-nav">
+    <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">管理员</a>
+        <a><cite>成绩</cite></a>
+      </span>
+    <a class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+        <i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+</div>
+<div class="weadmin-body">
+    <table class="layui-hide" id="demo" lay-filter="test"></table>
+</div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" onclick="WeAdminShow('计算总成绩','./gradeEdit.html',500,300)">计算总成绩</button>
+    </div>
+</script>
+<!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+<script src="../../layui/layui.js" charset="utf-8"></script>
+<script src="../../js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/jquery-3.3.1.js">  </script>
+<script src="../../js/timestampToTime.js"></script>
+<script>
+
+    layui.use('table', function() {
+        var table = layui.table,
+            form = layui.form;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , height: 'full-180'
+            , toolbar: '#toolbarDemo'
+            , url: '../../grade/findAll.json' //数据接口
+            , cellMinWidth: 70
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'gradeId', title: '编号', fixed: 'left', width: 100}
+                , {
+                    field: 'gameName', title: '比赛名称', templet: function (row) {
+                        return row.game.gameName;
+                    }
+                }
+                , {
+                    field: 'playerName', title: '选手姓名', templet: function (row) {
+                        return row.player.name;
+                    }
+                }
+                , {field: 'grade', title: '成绩'}
+                , {
+                    field: 'adminName', title: '裁判姓名', templet: function (row) {
+                        return row.admin.adminName
+                    }
+                }
+            ]],
+        });
+    })
+
+
+</script>
+</body>
+</html>
